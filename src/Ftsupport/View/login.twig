@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+        <title>FTSupport - Login</title>
+        <link href="/mvcframework/public/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/mvcframework/public/css/tablestyles.css" rel="stylesheet">
+        <link href="/mvcframework/public/css/pagestyles.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container col-lg-10 col-lg-offset-1">
+            <div class="row">
+                <nav>
+                    <ul class="nav nav-pills">
+                        <li><a href="/mvcframework/home/">Home</a></li>
+                        <li><a href="/mvcframework/clients/viewall/">Klantenlijst</a></li>
+                        <li><a href="/mvcframework/sites/viewall/">Installatielijst</a></li>
+                        {% if session.user is defined %}<li><a href="/mvcframework/auth/logout/">Log out</a></li>{% endif %}
+                    </ul>
+                </nav>
+            </div>
+            <!--end of nav row-->
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Fuel Technic - Login</div>
+                    <form class="form-horizontal" role="form" method="post" action="/mvcframework/auth/login/">
+                        <div class="form-group">
+                            <label class="col-lg-1" for="username">Username</label>
+                            <input class="col-lg-2" name="username" id="username" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-1" for="password">Password</label>
+                            <input class="col-lg-2" name="password" id="password" type="password">
+                        </div>
+                        <div class="well">
+                            <input class="btn btn-primary" type="submit" value="Login">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--end of form row-->
+            {% if exception is defined %}
+            <div class="row">
+                <div class="alert alert-danger">
+                    <h3>Error</h3>
+                    <p>{{ exception.message }}</p>
+                </div>
+            </div><!--end of error row-->
+            {% endif %}
+        </div>
+        <!--end of container-->
+    </body>
+</html>

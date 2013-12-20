@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+        <title>FTSupport - Klant detail</title>
+        <link href="/mvcframework/public/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/mvcframework/public/css/tablestyles.css" rel="stylesheet">
+        <link href="/mvcframework/public/css/pagestyles.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container col-lg-10 col-lg-offset-1">
+            <div class="row">
+                <nav>
+                    <ul class="nav nav-pills">
+                        <li><a href="/mvcframework/home/">Home</a></li>
+                        <li><a href="/mvcframework/clients/viewall/">Klantenlijst</a></li>
+                        <li><a href="/mvcframework/sites/viewall/">Installatielijst</a></li>
+                        {% if session.user is defined %}<li><a href="/mvcframework/auth/logout/">Log out</a></li>{% endif %}
+                    </ul>
+                </nav>
+            </div>
+            <!--end of nav row-->
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Fuel Technic - Klant Detail</div>
+                    <form class="form-horizontal" role="form" method="post" {% if client is defined and client.id is not empty %} action="/mvcframework/clients/update" {% else %} action="/mvcframework/clients/add" {% endif %}>
+                        <input type="hidden" name="id" id="id" value="{{ client.id }}">
+                        <div class="form-group">
+                            <label for="name" class="col-lg-1">Naam</label>
+                            <div class="col-lg-3"><input  class="form-control" id="name" name="name" type="text" value="{{  client.name }}"></div>
+                            <label for="group" class="col-lg-1">Groep</label>
+                            <div class="col-lg-1"><input class="form-control" id="group" name="group" type="text" value="{{  client.group }}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="col-lg-1">Adres</label>
+                            <div class="col-lg-5"><input class="form-control" id="address" name="address" type="text" value="{{ client.address }}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="postcode" class="col-lg-1">Postcode</label>
+                            <div class="col-lg-1"><input class="form-control" id="postcode" name="postcode" type="text" value="{{ client.postcode }}"></div>
+                            <label for="city" class="col-lg-1">Stad</label>
+                            <div class="col-lg-3"><input class="form-control" id="city" name="city" type="text" value="{{ client.city }}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" class="col-lg-1">Telefoon</label>
+                            <div class="col-lg-2"><input class="form-control" id="telephone" name="telephone" type="text" value="{{ client.telephone }}"></div>
+                            <label for="fax" class="col-lg-1">Fax</label>
+                            <div class="col-lg-2"><input class="form-control" id="fax" name="fax" type="text" value="{{ client.fax }}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-lg-1">Email</label>
+                            <div class="col-lg-5"><input class="form-control" id="email" name="email" type="text" value="{{ client.email }}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="remarks" class="col-lg-1">Opmerkingen</label>
+                            <div class="col-lg-5"><textarea class="form-control" id="remarks" name="remarks" rows="6">{{ client.remarks }}</textarea></div>
+                        </div>
+                        {% if contacts is defined and contacts is not empty %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Contactpersonen</div>
+                            <table class="table">
+                                <thead>
+                                    <tr class="active">
+                                        <td>Naam</td>
+                                        <td>Telefoon</td>
+                                        <td>GSM</td>
+                                        <td>Email</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for contact in contacts %}
+                                    <tr>
+                                        <td><a href="/mvcframework/contacts/view/{{ contact.id }}">{{ contact.name }}</a></td>
+                                        <td>{{ contact.telephone }}</td>
+                                        <td>{{ contact.mobile }}</td>
+                                        <td>{{ contact.email }}</td>
+                                        <td><a class="btn btn-danger" href="/mvcframework/contacts/delete/{{ contact.id }}/{{ client.id }}">Delete</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--end of contact panel-->
+                        {% endif %}
+                        <div class="well">
+                                <input type="submit" class="btn btn-primary" value="Opslaan">
+                                {% if client is defined %}<a class="btn btn-primary" href="/mvcframework/contacts/create/{{ client.id }}">Nieuwe contactpersoon</a>{% endif %}
+                        </div>
+                    </form>
+                </div>
+                <!--end of panel-->
+            </div>
+            <!--end of form row-->
+        </div>
+        <!--end of container-->
+    </body>
+</html>

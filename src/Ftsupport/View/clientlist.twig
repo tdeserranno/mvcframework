@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+        <title>FTSupport - Klantenlijst</title>
+        <link href="/mvcframework/public/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/mvcframework/public/css/tablestyles.css" rel="stylesheet">
+        <link href="/mvcframework/public/css/pagestyles.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container col-lg-10 col-lg-offset-1">
+            <div class="row">
+                <nav>
+                    <ul class="nav nav-pills">
+                        <li><a href="/mvcframework/home/">Home</a></li>
+                        <li><a href="/mvcframework/clients/viewall/">Klantenlijst</a></li>
+                        <li><a href="/mvcframework/sites/viewall/">Installatielijst</a></li>
+                        {% if session.user is defined %}<li><a href="/mvcframework/auth/logout/">Log out</a></li>{% endif %}
+                    </ul>
+                </nav>
+            </div>
+            <!--end of nav row-->
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Fuel Technic - Klantenlijst</div>
+                    <table class="table">
+                        <thead>
+                            <tr class="active">
+                                <td>Naam</td>
+                                <td>Adres</td>
+                                <td>Postcode</td>
+                                <td>Stad</td>
+                                <td>Telefoon</td>
+                                <td>Fax</td>
+                                <td>Email</td>
+                                <td>Groep</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for client in clients %}
+                                <tr>
+                                    <td><a href="/mvcframework/clients/view/{{ client.id }}">{{ client.name }}</a></td>
+                                    <td>{{ client.address }}</td>
+                                    <td>{{ client.postcode }}</td>
+                                    <td>{{ client.city }}</td>
+                                    <td>{{ client.telephone }}</td>
+                                    <td>{{ client.fax }}</td>
+                                    <td>{{ client.email }}</td>
+                                    <td>{{ client.group }}</td>
+                                    <td><a class="btn btn-danger" href="/mvcframework/clients/delete/{{ client.id }}">Delete</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="panel-footer">
+                        <a class="btn btn-primary" href="/mvcframework/clients/create">Nieuwe klant</a>
+                    </div>
+                </div>
+                <!--end of panel-->
+            </div>
+            <!--end of form row-->
+        </div>
+        <!--end of container-->
+    </body>
+</html>

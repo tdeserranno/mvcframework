@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+        <title>FTSupport - Contact detail</title>
+        <link href="/mvcframework/public/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/mvcframework/public/css/tablestyles.css" rel="stylesheet">
+        <link href="/mvcframework/public/css/pagestyles.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container col-lg-10 col-lg-offset-1">
+            <div class="row">
+                <nav>
+                    <ul class="nav nav-pills">
+                        <li><a href="/mvcframework/home/">Home</a></li>
+                        <li><a href="/mvcframework/clients/viewall/">Klantenlijst</a></li>
+                        <li><a href="/mvcframework/sites/viewall/">Installatielijst</a></li>
+                        {% if session.user is defined %}<li><a href="/mvcframework/auth/logout/">Log out</a></li>{% endif %}
+                    </ul>
+                </nav>
+            </div>
+            <!--end of nav row-->
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Fuel Technic - Contact Detail</div>
+                    <form class="form-horizontal" role="form" method="post" {% if contact is defined and contact is not empty %} action="/mvcframework/contacts/update" {% else %} action="/mvcframework/contacts/add" {% endif %}>
+                        <input type="hidden" name="id" value="{{ contact.id }}">
+                        <div class="form-group">
+                            <label for="name" class="col-lg-1">Naam</label>
+                            <div class="col-lg-5"><input  class="form-control" id="name" name="name" type="text" value="{{ contact.name }}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" class="col-lg-1">Telefoon</label>
+                            <div class="col-lg-2"><input class="form-control" id="telephone" name="telephone" type="text" value="{{ contact.telephone }}"></div>
+                            <label for="fax" class="col-lg-1">GSM</label>
+                            <div class="col-lg-2"><input class="form-control" id="mobile" name="mobile" type="text" value="{{ contact.mobile }}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-lg-1">Email</label>
+                            <div class="col-lg-5"><input class="form-control" id="email" name="email" type="text" value="{{ contact.email }}"></div>
+                        </div>
+                        <input type="hidden" name="clientid" value="{% if clientid is defined and clientid is not empty %}{{ clientid }}{% else %}{{ contact.clientid }}{% endif %}">
+                        <div class="well">
+                                <input type="submit" class="btn btn-primary" value="Opslaan">
+                        </div>
+                    </form>
+                </div>
+                <!--end of panel-->
+            </div>
+            <!--end of form row-->
+        </div>
+        <!--end of container-->
+    </body>
+</html>
