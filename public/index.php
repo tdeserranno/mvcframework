@@ -29,7 +29,6 @@ try {
         case '1':
             //before redirecting to login page store requested page in SESSION to use
             //for redirecting after login
-            var_dump($_SERVER['REQUEST_URI']);
             $_SESSION['prev_req_page'] = $_SERVER['REQUEST_URI'];
             header('Location: /mvcframework/auth/go');
             exit();
