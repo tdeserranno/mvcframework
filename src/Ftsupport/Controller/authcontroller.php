@@ -36,9 +36,11 @@ class AuthController extends Controller
         if ($this->app->helper->validateForm()) {
             //validate user
             if (UserService::validateUser($_POST['username'], $_POST['password'])) {
-                //if login successful, create SESSION variables,  redirect to requested page
+                //if login successful, create SESSION variables
+                //if set redirect to requested page, otherwise redirect to home
                 $_SESSION['user'] = $_POST['username'];
-                header('Location: '.$_SESSION['prev_req_page']);
+                $redirect = isset($_SESSION['prev_req_page']) ? $_SESSION['prev_req_page'] : '/mvcframework/home/go/';
+                header('Location: '. $redirect);
                 exit();
             } 
         } else {
